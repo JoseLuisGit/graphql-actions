@@ -31,15 +31,16 @@ jobs:
           NEW_VERSION: ${{ steps.version.outputs.version }}
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-          echo "Version: $NEW_VERSION"
 
-      # - name: Build the Docker image
-      #   run: |
-      #     docker build -t pplchodev/graphql-actions:0.0.2 .
+      - name: Build the Docker image
+        run: |
+          docker build -t pplchodev/graphql-actions:$NEW_VERSION .
+          docker build -t pplchodev/graphql-actions:latest .
 
-      # - name: Push the Docker image
-      #   run: |
-      #     docker push pplchodev/graphql-actions:0.0.2
+      - name: Push the Docker image
+        run: |
+          docker push pplchodev/graphql-actions:$NEW_VERSION
+          docker push pplchodev/graphql-actions:latest
 
 #    - name: Build the Docker image
 #      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
